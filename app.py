@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb  8 17:55:26 2023
-
-@author: user
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb  8 13:36:00 2023
-
-@author: user
-"""
-
 import streamlit as st
 import pickle
 import pandas as pd
