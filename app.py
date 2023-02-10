@@ -40,16 +40,16 @@ def recommend(target_user):
     recommend_books = pd.DataFrame()
     
     # Add average recommendation score
-    recommend_books['avg_reccomend_score'] = grouped_ratings['weighted_rating']/grouped_ratings['similarity_index']
+    recommend_books['avg_recommend_score'] = grouped_ratings['weighted_rating']/grouped_ratings['similarity_index']
     recommend_books['Book-Title'] = grouped_ratings.index
     recommend_books = recommend_books.reset_index(drop=True).drop_duplicates('Book-Title')
     recommend_books = recommend_books.merge(users_df,on='Book-Title',how='inner').drop(['ISBN', 'Year-Of-Publication', 'Publisher'], axis=1)
     
     # Left books with the highest 10 score
-    recommend_books = recommend_books[(recommend_books['avg_reccomend_score'] >= 1)].drop_duplicates('Book-Title').sort_values(by='avg_reccomend_score', 
+    recommend_books = recommend_books[(recommend_books['avg_recommend_score'] >= 1)].drop_duplicates('Book-Title').sort_values(by='avg_recommend_score', 
                                                                                                  ascending=False).head(10)
-    recommend_books=recommend_books['Book-Title'].reset_index(drop=True)
-    return recommend_books 
+    recommend_books=recommend_books.drop(['avg_recommend_score', 'user_id','rating'], axis=1).values.tolist()
+    return recommend_books  
 
 image_url = popular['Image-URL-M'].tolist()
 book_title = popular['Book-Title'].tolist() 
@@ -170,11 +170,50 @@ if st.sidebar.button("SHOW"):
 st.title("Recommend Books")
 
 users_list=users_df['user_id'].drop_duplicates().values
-select_userid=st.selectbox('Enter target userid', users_list)
-if st.button('recommend'):
-    recommendation=recommend(select_userid)
-    for i in recommendation:
-        st.write(i)
-    
+select_userid=st.selectbox('Type or select user id from the dropdown', users_list)
+if st.button('Recommend'):
+    bookie = recommend(select_userid)
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        st.image(bookie[0][2])
+        st.text(bookie[0][0])
+        st.text(bookie[0][1])  
+    with col2:
+        st.image(bookie[1][2])
+        st.text(bookie[1][0])
+        st.text(bookie[1][1])
+    with col3:
+        st.image(bookie[2][2])
+        st.text(bookie[2][0])
+        st.text(bookie[2][1])
+    with col4:
+        st.image(bookie[3][2])
+        st.text(bookie[3][0])
+        st.text(bookie[3][1])
+    with col5:
+        st.image(bookie[4][2])
+        st.text(bookie[4][0])
+        st.text(bookie[4][1])
+    col1,col2,col3,col4,col5=st.columns(5)
+    with col1:
+        st.image(bookie[5][2])
+        st.text(bookie[5][0])
+        st.text(bookie[5][1])  
+    with col2:
+        st.image(bookie[6][2])
+        st.text(bookie[6][0])
+        st.text(bookie[6][1])
+    with col3:
+        st.image(bookie[7][2])
+        st.text(bookie[7][0])
+        st.text(bookie[7][1])
+    with col4:
+        st.image(bookie[8][2])
+        st.text(bookie[8][0])
+        st.text(bookie[8][1])
+    with col5:
+        st.image(bookie[9][2])
+        st.text(bookie[9][0])
+        st.text(bookie[9][1])
         
 
