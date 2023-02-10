@@ -18,8 +18,8 @@ import pandas as pd
 from scipy.stats import pearsonr
 
 
-users_df=pickle.load(open("C:/Users/user/Jupyter note/Book recommendation project/New folder/user_model.pkl",'rb'))
-popular = pickle.load(open('C:/Users/user/Jupyter note/Book recommendation project/New folder/popular.pkl','rb'))
+users_df=pickle.load(open("user_model.pkl",'rb'))
+popular = pickle.load(open('popular.pkl','rb'))
 
 def recommend(target_user):
     user_books=users_df[users_df['user_id']==target_user]
