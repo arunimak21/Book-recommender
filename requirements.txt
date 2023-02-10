@@ -1,4 +1,4 @@
-pandas
-scipy
-pickle
-streamlit 
+pandas==1.5.3
+scipy==1.10.0
+pickle==4.0
+streamlit==1.17.0 
